@@ -140,17 +140,7 @@ const Supplies = () => {
                                         <div className='mt-2 bg-sky-900 justify-center items-center text-center text-gray-700 bg-white w-30 h-30 rounded-xl bg-clip-border'>
                                             {item.name}<br />
                                         </div>
-                                        <div className='grid justify-items-center'>
-                                            <button className='justify-items-center w-5 h-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
-                                                -
-                                            </button>
-                                        </div>
                                         <div className='text-center w-30 h-30'>{item.quantity}</div>
-                                        <div className='grid justify-items-center'>
-                                            <button className='justify-items-center rounded-full w-5 h-5 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
-                                                +
-                                            </button>
-                                        </div>
                                         <button 
                                             onClick={() => deleteSupplies(item.name)}
                                             className='mr-2 text-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
