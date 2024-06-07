@@ -21,7 +21,6 @@ function UserScreen() {
           <Link to='/getrecipe'className='text-white hover:text-gray-300'>Search Recipe</Link>
           <Link to='/shop-list'className='text-white hover:text-gray-300'>Shop List</Link>
           <Link to='/supplies'className='text-white hover:text-gray-300'>Supplies</Link>
-          <Link to='/save-food'className='text-white hover:text-gray-300'>Favourite Recipe</Link>
         </div>
 
         <div className='md:hidden'>
@@ -42,9 +41,6 @@ function UserScreen() {
             </li>
             <li>
               <Link to='/supplies'className='text-white hover:text-gray-300' onClick={handleToggle}>Supplies</Link>
-            </li>
-            <li>
-              <Link to='/save-food'className='text-white hover:text-gray-300' onClick={handleToggle}>Favourite Recipe</Link>
             </li>
           </ul>
         </div>

@@ -3,8 +3,6 @@ import axios from 'axios';
 import 'reactjs-popup/dist/index.css';
 import Popup from 'reactjs-popup';
 import CustomAccordion from './CustomAccordion';
-import star from './image/star1.png';
-import clickStar from'./image/star.png';
 
 
 
@@ -22,13 +20,14 @@ function GetRecipe() {
   const [ingredients, setIngredients] = useState([{ name: '', quantity: '' }]);
   const [searchRecipe, setSearchRecipe] =useState('');
   const [results, setResults] = useState([]);
+
+  
  
 
   useEffect(() => {
     axios.get('http://localhost:4000/recipes')
       .then(response => {
         setRecipes(response.data);
-        console.log(response)
       })
       .catch(error => console.error('Error fetching recipes:', error));
   }, []);
@@ -116,7 +115,8 @@ function GetRecipe() {
     );
     setResults(filteredRecipes);
   };
- 
+
+
 
   return (
     <div className="grid mt-2 bg-sky-900 text-center justify-center items-center text-gray-700 bg-white shadow-md w-full  rounded-xl bg-clip-border">
@@ -219,7 +219,7 @@ function GetRecipe() {
                             <p>Servings : {recipe.servings}</p>
                             <p>Author : {recipe.author}</p>
                           </div>
-                          <button><img src={star} className='left-2 w-5 h-5'></img></button>
+                          
                           <Popup trigger={<button className="w-60 h-10 mt-2 mb-5 text-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                           >Show Recipe</button>} modal>
                             {close => (
