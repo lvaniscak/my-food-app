@@ -14,6 +14,16 @@ app.use(bodyParser.json());
 
 connectDB();
 
+app.get('/recipes', async (req, res) => {
+    try {
+        const searchRecipes = await Recipe.find({});
+        res.json(searchRecipes);
+        console.log(searchRecipes)
+    } catch (error) {
+        console.error('Error fetching searchRecipes:', error);
+        res.status(400).json({ message: 'Bad request' });
+    }
+});
 
 app.post('/favorite-recipe', async (req, res) => {
     const recipeName = NewFavoutite.req.body;
