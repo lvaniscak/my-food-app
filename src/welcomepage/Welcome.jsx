@@ -11,7 +11,7 @@ function Welcome(){
                 <div className='hidden md:flex space-x-4'>
                     <Link to='/home'className='text-white hover:text-gray-300'>Home</Link>
                     <Link to='./login'className='text-white hover:text-gray-300'>Log In</Link>
-                    <Link to='./sign'className='text-white hover:text-gray-300'>Sign In</Link>
+                    <Link to='./sign'className='text-white hover:text-gray-300'>Sign Up</Link>
                 </div>
             </div>
         </nav>

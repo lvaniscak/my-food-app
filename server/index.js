@@ -4,9 +4,10 @@ const Task = require('./models/Task');
 const cors = require('cors');
 const Supplies = require('./models/Supplies');
 const Recipe = require ('./models/Recipe');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const app = express();
-
+const Register = require('./models/SignUp');
+const bcrypt = require('bcrypt');
 
 app.use(express.json());
 app.use(cors());
@@ -14,9 +15,61 @@ app.use(bodyParser.json());
 
 connectDB();
 
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await Register.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const isPasswordMatch = await bcrypt.compare(password, user.hashedPassword);
+        if (!isPasswordMatch) {
+            return res.status(401).json({ message: "Incorrect password" });
+        }
+
+        res.status(200).json({ message: "Login successful" });
+    } catch (error) {
+        console.error('Error processing login request:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 
+app.post('/sign', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
 
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        let user = await Register.findOne({ email });
+        if (user) {
+            return res.status(409).json({ message: 'User already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10); 
+        user = new Register({ name, email, password: hashedPassword });
+        await user.save();
+
+        return res.status(201).json({ message: 'User created successfully' });
+    } catch (error) {
+        console.error('Error processing registration request:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/recipes', async (req, res) => {
+    try {
+        const searchRecipes = await Recipe.find({});
+        res.json(searchRecipes);
+        console.log(searchRecipes)
+    } catch (error) {
+        console.error('Error fetching searchRecipes:', error);
+        res.status(400).json({ message: 'Bad request' });
+    }
+});
 
 app.post('/recipes', async (req, res) => {
     try {
@@ -95,25 +148,6 @@ app.delete('/store/:name', async (req, res) => {
     }
 });
 
-app.post('/sign', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await itemModel.findOne({ email });
-        if (user) {
-            if (user.password === password) {
-                res.json('success');
-            } else {
-                res.json('failed');
-            }
-        } else {
-            const newUser = new itemModel({ email, password });
-            await newUser.save();
-            res.json('user created');
-        }
-    } catch (error) {
-        res.status(400).json({ message: 'Bad request' });
-    }
-});
 
 app.listen(4000, () => {
     console.log('App is running on port 4000');

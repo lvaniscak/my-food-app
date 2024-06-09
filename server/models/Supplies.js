@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const StoreSchema = new mongoose.Schema({
     category: String,
-    name:  String,
+    name: String,
     quantity: Number
 });
 

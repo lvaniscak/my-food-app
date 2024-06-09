@@ -2,26 +2,27 @@ import React, { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 
 function Sign() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: ''
-  });
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const navigate = useNavigate()
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = { name, email, password };
+
     try {
-      const res = await fetch('http://localhost:3000/sign', {
+      const res = await fetch('http://localhost:4000/sign', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
       const data = await res.json();
       console.log(data);
       navigate('/login')
@@ -42,8 +43,8 @@ function Sign() {
             placeholder='Enter your name here'
             type='text'
             name='name'
-            value={formData.name}
-            onChange={handleChange}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <br />
           <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
@@ -54,8 +55,8 @@ function Sign() {
             placeholder='Enter your email here'
             type='email'
             name='email'
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <br />
           <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
@@ -66,8 +67,8 @@ function Sign() {
             placeholder='Enter your password here'
             type='password'
             name='password'
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <br />
           <div className='mb-5'>
