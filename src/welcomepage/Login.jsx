@@ -13,7 +13,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:4000/', {
+    const res = await fetch('http://localhost:4000/sign', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

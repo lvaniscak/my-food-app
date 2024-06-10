@@ -4,7 +4,8 @@ const Task = require('./models/Task');
 const cors = require('cors');
 const Supplies = require('./models/Supplies');
 const Recipe = require ('./models/Recipe');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const User = require('./models/User');
 const app = express();
 
 
@@ -121,8 +122,8 @@ app.delete('/store/:name', async (req, res) => {
 
 app.post('/sign', async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await itemModel.findOne({ email });
+        const { name, email, password } = req.body;
+        const user = await User.findOne({ email });
         if (user) {
             if (user.password === password) {
                 res.json('success');
@@ -130,7 +131,7 @@ app.post('/sign', async (req, res) => {
                 res.json('failed');
             }
         } else {
-            const newUser = new itemModel({ email, password });
+            const newUser = new User({name, password, email });
             await newUser.save();
             res.json('user created');
         }
